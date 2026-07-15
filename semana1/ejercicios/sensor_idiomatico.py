@@ -39,3 +39,4 @@ def serialize_for_uart(reading: Reading) -> str:
 # con esto completamos el trabajo del primer dia/semana 1 para poder echarlo
 #a andar se debe de utilizar una parte de codigo extra que se encargara de 
 # dare uso a la clase definida
+
