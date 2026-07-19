@@ -29,6 +29,11 @@ realmente aplicados como lo que son dentro de la facultad los trabajos
 entregables en cada una de las materias, no serian por el mero hecho de 
 entregar si no de crear algo verdaderamente funcional dando puerta al 
 entendimiento de otros proyectos en diversar materias. 
+
+Como un comentario extra apenas estoy comenzando a entender como funcionan los commits por si ve uno diferente o que se repiten es por que no supe como cambiarlos, hay algunos que no quise modificar por que se perderia la evidencia 
+de que se realizo con antelacion a hoy sabado 18.
+
+
 --------------------------------------------------------------------------------------
 PROMTS, RESPUESTA DE LA IA y ELECCION
 
