@@ -1,5 +1,5 @@
 import pytest
-from solid_lsp import BadWorkingSensor, BadFaultySensor, GoodWorkingSensor, GoodFailsafeSensor
+from solid_lsp import BadFaultySensor, GoodFailsafeSensor
 
 def test_bad_sensor_violates_lps() -> None:
     sensor = BadFaultySensor()

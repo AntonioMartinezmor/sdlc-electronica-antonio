@@ -1,5 +1,4 @@
-import pytest
-from solid_ocp import BadSensorReader, DHT11Sensor, LDRSensor, GoodSensorReader
+from solid_ocp import DHT11Sensor, LDRSensor, GoodSensorReader
 def test_good_reader_with_dht11() -> None:
     reader = GoodSensorReader()
     sensor = DHT11Sensor()
