@@ -2,7 +2,8 @@ from abc import ABC, abstractmethod
 from ps.src.sensor import SensorReading
 
 class AnomalyDetector: 
-    def __init__(self, max_temp:float =35.0, max_humidity: float= 80.0):
+    def __init__(self, max_temp:float =35.0, max_humidity: float= 80.0) -> None:
+    
         self.max_temp = max_temp
         self.max_humidity = max_humidity
 
@@ -23,16 +24,18 @@ class ConsoleAlertStrategy(AlertStrategy):
 
 
 class FileAlertStrategy(AlertStrategy):
-    def __init__(self, file_path:str = "bitacora_alerts.log"):
+    def __init__(self, file_path:str = "bitacora_alerts.log") -> None:
         self.file_path=file_path
     def send_alert(self,reading: SensorReading,message:str)->None: 
-        log_line = f"[BITACORA]Sensor:{reading.sensor_id}-{message} - Temp: {reading.temperature} C, Hum:{reading.humidity} %\n"
-        with open(self.file_path, "a", encoding="utf-8") as f:
-            f.write(log_line)
+        log_entry = (
+            f"[BITACORA] Sensor: {reading.sensor_id}- {message} -"
+            f"Temp: {reading.temperature} °C, Hum: {reading.humidity}%\n"
+        )
+        with open(self.file_path,"a" , encoding= "utf-8") as file: 
+            file.write(log_entry)
 
 class AlertManager: 
-    def __init__(self, strategy:AlertStrategy):
+    def __init__(self, strategy:AlertStrategy) -> None:
         self.strategy = strategy 
     def notify(self,reading:SensorReading, message:str) -> None:
         self.strategy.send_alert(reading,message)
-        
