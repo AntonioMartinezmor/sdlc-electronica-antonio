@@ -8,8 +8,8 @@ def test_format_summary_normal_reading():
 
     summary = formatter.format_summary(reading)
 
-    assert "SENSOR:BODEGA_01" in summary
-    assert "Temp: 22.5 °C" in summary 
+    assert "SENSOR: BODEGA_01" in summary
+    assert "Temp: 22.5°C" in summary 
     assert "Hum: 55.0%" in summary
 
 def test_format_json_export():
@@ -20,4 +20,4 @@ def test_format_json_export():
     assert data["sensor_id"] == "BODEGA_02"
     assert data["temperature"] == "18.0 °C"
     assert data ["humidity"] == "40.0%"
-    
+
