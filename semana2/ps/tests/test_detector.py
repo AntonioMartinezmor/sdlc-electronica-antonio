@@ -23,10 +23,10 @@ def test_alert_manager_console(capsys):
     strategy = ConsoleAlertStrategy()
     manager = AlertManager(strategy=strategy)
     reading = SensorReading(sensor_id="BODEGA_NORTE_01", temperature= 38.0 , humidity= 85.0)
-    manager.notify(reading,message="Anomalida detectada")
+    manager.notify(reading,message="Anomalia detectada")
     captured = capsys.readouterr()
     assert "BODEGA_NORTE_01" in captured.out 
-    assert "Anomalia datectada" in captured.out 
+    assert "Anomalia detectada" in captured.out 
 
 def test_alert_manager_file(tmp_path):
     log_file = tmp_path/ "bitacora_alertas.log"
