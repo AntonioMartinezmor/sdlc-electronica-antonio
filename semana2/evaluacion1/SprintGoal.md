@@ -3,6 +3,10 @@
 --**Sprint Goal:
 Diseñar las bases de un sistema IOT con sistema de alertas, deteccion de errores y sobre todo lectura de sensores.
 
+--**LINK A TABLERO EN GIT**--
+https://github.com/users/AntonioMartinezmor/projects/2
+
+
 *Para este primer sprint se seleccionaron 5 de las 10 historias que tengo:
 
 -Validacion de datos capturados: Esta es uno de los users story primordilaes en el proyecto ya que sienta las bases para el diseño de las demas funciones, utlizando la recepcion de datos asi como la evaluacion de los mismos siendo una de las partes mas importantes del sistema. 
