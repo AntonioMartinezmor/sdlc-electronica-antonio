@@ -1,4 +1,4 @@
-*Sprint 1 Planning
+-**Sprint 1 Planning**-
 
 --**Sprint Goal:
 Diseñar las bases de un sistema IOT con sistema de alertas, deteccion de errores y sobre todo lectura de sensores.
