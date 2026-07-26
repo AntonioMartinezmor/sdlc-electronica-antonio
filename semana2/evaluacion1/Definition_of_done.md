@@ -6,4 +6,4 @@ Los criterios con los que evaluamos los codigo para ser clasificados como done s
 
 2.- Para poder pasar a done, debe de ser probado de manera unitaria el conjunto de codigos, pasando al 100% las pruebas unitarias.
 
-3.-El analisis de cobertura del codigo debe de alcanzar minimo un 80% por medio de pytest-cov
+3.-El analisis de cobertura del codigo debe de alcanzar minimo un 80% por medio de pytest-cov. 
