@@ -1,1 +1,1 @@
-  fastapi / uvicorn[standard]  --> elemento necesario para levantar el servidor local -> instalable con  pip install fastapi "uvicorn[standard]"
+uvicorn[standard] 
