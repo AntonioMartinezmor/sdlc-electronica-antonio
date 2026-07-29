@@ -8,7 +8,7 @@ class Reading(Base):
     # donde se guardan los datos / a la base de datos 
 
     id: Mapped[int] = mapped_column(primary_key=True)# este es el identificador 
-    # para las columnas siendo un identificador 
+    # para las filas siendo un identificador 
     sensor_id: Mapped[str]
     value: Mapped[float]
     unit: Mapped[str]
