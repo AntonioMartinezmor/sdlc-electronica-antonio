@@ -1,7 +1,15 @@
+#Este es el archivo principal, encargado de manejar todo lo que creemos por
+#partes, por ello se mandan a llamar routers y los modelos
 from fastapi import FastAPI
 from app.routers import health , readings
+from app.db import Base, engine
+from app.models import reading 
 
-app = FastAPI(title="SensorHub")
+Base.metadata.create_all(bind=engine)# se crea la tabla para readings 
+#se crean fisicamente en sensorhub con ayuda de bind=engine
 
-app.include_router(health.router)
-app.include_router(readings.router)
+app = FastAPI(title="SensorHub")# es encargado de generar la aplicacion 
+# con el nombre de sensorhub
+
+app.include_router(health.router)# arranca con los servidores que nosotros 
+app.include_router(readings.router)# construimos en routers 
