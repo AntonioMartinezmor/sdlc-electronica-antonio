@@ -3,7 +3,7 @@
 from fastapi import FastAPI
 from app.routers import health , readings
 from app.db import Base, engine
-from app.models import reading 
+from app.models import reading #noqa: F401
 
 Base.metadata.create_all(bind=engine)# se crea la tabla para cualquier modelo 
 #se crean fisicamente en sensorhub con ayuda de bind=engine
