@@ -1,4 +1,4 @@
-#este es el segundo endpoint creado; busca tener relacion con lo trabajado la 
+#este es el segundo endpoint creado; busca tener relacion con el  
 #pasada con sensores, logrando lectura de datos  a manera de lectura 
 from fastapi import APIRouter
 from app.schemas.reading import ReadingCreate
