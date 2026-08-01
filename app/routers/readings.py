@@ -66,4 +66,12 @@ def update_reading(reading_id:int, data:ReadingCreate, db:Session=Depends(get_db
 
     return reading
 
+@router.delete("/readings/{reading_id}")
+def delete_reading(reading_id: int, db:Session = Depends(get_db)):
+    repository = ReadingRepository(db)
+    service = ReadingService(repository)
+    success = service.delete_reading(reading_id)
+    if not success: 
+        raise HTTPException(status_code=404,detail="Reading not found")
+    return {"message": "Reading deleted successfully"}
 

@@ -59,6 +59,11 @@ class ReadingRepository: # definimos una clase molde, para base de datos
         self.db.commit()#confirmamos los cambios asignados en las anteriores lineas 
         self.db.refresh(reading)# sincronizamos los datos que habia como los que se asignaron ahora
         return reading
+    #en este caso recibira el objeto ubicado 
+    def delete(self, reading: Reading) -> None: 
+        self.db.delete(reading)# marca el objeto para borrar 
+        self.db.commit()
+
 
 
 

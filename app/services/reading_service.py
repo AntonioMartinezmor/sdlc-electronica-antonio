@@ -45,5 +45,12 @@ class ReadingService:
         if reading is None: 
             return None
         return self.repository.update(reading, data )
-        
+       
+    def delete_reading(self, reading_id: int) -> bool: 
+        reading = self.repository.get_by_id(reading_id)
+        if reading is None: 
+            return False 
+        self.repository.delete(reading)
+        return True
+
 
