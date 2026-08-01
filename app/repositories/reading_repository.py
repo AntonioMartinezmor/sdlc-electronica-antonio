@@ -45,5 +45,11 @@ class ReadingRepository: # definimos una clase molde, para base de datos
 
         return list(self.db.scalars(stmt)) # por ultimo ejecutamos la consulta
         # contra la base de datos
+    def get_by_id(self, reading_id: int)->Optional[Reading]:#recibimos la llave primaria 
+        return self.db.get(Reading, reading_id)#recibe una posicion de la tabla y con
+        #ayuda de SQLAlchemy encuentra la fila que corresponde a la llave primaria id 
+        # si no recibe la llave primaria regresa un none
+
+    
 
 

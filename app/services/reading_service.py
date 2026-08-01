@@ -36,3 +36,7 @@ class ReadingService:
         )
     #esto debido a que no tenemos aun restricciones que agregar, simplemente estamos 
     # trabajando en capas
+    def get_reading_by_id(self,reading_id:int) ->Optional[Reading]:#a traves de servicio recibimos 
+        # la peticion de lectura para enviarlo al repositorio
+        return self.repository.get_by_id(reading_id)
+

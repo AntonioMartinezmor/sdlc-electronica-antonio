@@ -3,7 +3,7 @@
 #recurriendo ahora a principios SOLID; esta version cuenta con un router con verbo GET
 from datetime import datetime
 from typing import Optional 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.schemas.reading import ReadingCreate
 from app.repositories.reading_repository import ReadingRepository
@@ -43,4 +43,17 @@ def list_readings(
     repository = ReadingRepository(db)
     service = ReadingService(repository)
     return service.get_readings(limit,offset, start_date, end_date)
+
+@router.get( "/readings/{reading_id}")#con las llaves le decimos al metodo 
+# que tomemos una parte especifica del url para usarlo aqui
+def get_reading(reading_id: int, db: Session= Depends(get_db)):
+    repository = ReadingRepository(db)
+    service = ReadingService(repository)
+    reading = service.get_reading_by_id (reading_id)
+    if reading is None:
+        raise HTTPException(status_code=404, detail="Reading not found")
+        #con ayuda de HTTP logramos detener la ejecucion para responder con un 
+        # codigo especifico
+    return reading
+
 
