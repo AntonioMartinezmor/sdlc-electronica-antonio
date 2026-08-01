@@ -1,6 +1,8 @@
 #La funcion dentro de este router cambio, para dar paso al tabajo en capas es decir
 #delega trabajo a otras instancias para no manejar la base de datos desde aqui
-#recurriendo ahora a principios SOLID
+#recurriendo ahora a principios SOLID; esta version cuenta con un router con verbo GET
+from datetime import datetime
+from typing import Optional 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.schemas.reading import ReadingCreate
@@ -28,3 +30,17 @@ def create_reading(reading: ReadingCreate, db: Session = Depends(get_db)): # val
     service = ReadingService(repository)# se crea otro objeto al que se le entrega el repository
     return service.create_reading(reading) # envia al servicio los datos validados, regresando 
     # que servicio devuelve
+#aprovechandonos de la cualidad de REST de reutilizar urls creamos este utilizando get
+@router.get("/readings")
+def list_readings(
+    limit: int=10,
+    offset: int = 0,
+    start_date: Optional[datetime]=None,
+    end_date: Optional[datetime] = None,
+    db: Session = Depends(get_db),
+
+):#ademas con ayuda de fastapi al tener parametros simples son interpretados como parte del url 
+    repository = ReadingRepository(db)
+    service = ReadingService(repository)
+    return service.get_readings(limit,offset, start_date, end_date)
+
