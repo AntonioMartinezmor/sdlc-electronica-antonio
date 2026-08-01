@@ -46,3 +46,63 @@ def test_create_reading_invalid_value():
         "unit": "celsius"
     })
     assert response.status_code == 422
+
+def test_get_reading_by_id_success():
+    create_response = client.post("/readings", json={
+        "sensor_id": "TEST_GET_01",
+        "value": 15.0,
+        "unit":"celsius"
+    })
+    reading_id = create_response.json()["id"]
+
+    response = client.get(f"/readings/{reading_id}")
+    assert response.status_code == 200
+    assert response.json()["sensor_id"] =="TEST_GET_01"
+
+
+def test_get_reading_by_id_not_found():
+    response = client.get("/readings/999999")
+    assert response.status_code == 404
+
+def test_update_reading_success():
+    create_response = client.post("/readings", json={
+        "sensor_id": "TEST_UPDATE_01",
+        "value": 10.0,
+        "unit": "celcius"
+    })
+    reading_id = create_response.json()["id"]
+    response = client.put(f"/readings/{reading_id}", json={
+        "sensor_id": "TEST_UPDATE_MODIFICADO",
+        "value": 50.0, 
+        "unit": "fahrenheit"
+    })
+    assert response.status_code == 200
+    assert response.json()["sensor_id"] == "TEST_UPDATE_MODIFICADO"
+    assert response.json()["value"] == 50.0
+
+def test_update_reading_not_found():
+    response = client.put("/readings/999999", json={
+        "sensor_id": "NO_EXISTE",
+        "value": 1.0,
+        "unit": "celcius"
+    })
+    assert response.status_code == 404
+
+def test_delete_reading_success():
+    create_response = client.post("/readings", json={
+        "sensor_id": "TEST_DELETE_01",
+        "value": 5.0,
+        "unit":"celsius"
+
+    })
+    reading_id = create_response.json()["id"]
+    
+    response = client.delete(f"/readings/{reading_id}")
+    assert response.status_code == 200
+
+    confirm_response = client.get(f"/readings/{reading_id}")
+    assert confirm_response.status_code == 404
+
+def test_delete_reading_not_found():
+    response = client.delete("/readins/999999")
+    assert response.status_code ==404
