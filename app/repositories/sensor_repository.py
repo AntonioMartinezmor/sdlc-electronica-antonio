@@ -1,10 +1,11 @@
+#se desarrollo un repositorio para el sensor. 
 from typing import Optional 
 from sqlalchemy import select
 from sqlalchemy.orm import Session 
 from app.models.sensor import Sensor
 from app.schemas.sensor import SensorCreate
 
-class SensorRepository:
+class SensorRepository
     def __init__(self,db:Session):
         self.db=db
 
@@ -32,4 +33,3 @@ class SensorRepository:
     def delete(self,sensor: Sensor) ->None:
         self.db.delete(sensor)
         self.db.commit()
-        
