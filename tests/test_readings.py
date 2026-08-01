@@ -68,7 +68,7 @@ def test_update_reading_success():
     create_response = client.post("/readings", json={
         "sensor_id": "TEST_UPDATE_01",
         "value": 10.0,
-        "unit": "celcius"
+        "unit": "celsius"
     })
     reading_id = create_response.json()["id"]
     response = client.put(f"/readings/{reading_id}", json={
@@ -84,7 +84,7 @@ def test_update_reading_not_found():
     response = client.put("/readings/999999", json={
         "sensor_id": "NO_EXISTE",
         "value": 1.0,
-        "unit": "celcius"
+        "unit": "celsius"
     })
     assert response.status_code == 404
 

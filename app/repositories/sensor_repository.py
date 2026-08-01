@@ -1,11 +1,11 @@
-#se desarrollo un repositorio para el sensor. 
+#se desarrollo un repositorio para el nuevo sensor siguiendo la guia de readings repositorio 
 from typing import Optional 
 from sqlalchemy import select
 from sqlalchemy.orm import Session 
 from app.models.sensor import Sensor
 from app.schemas.sensor import SensorCreate
 
-class SensorRepository
+class SensorRepository:
     def __init__(self,db:Session):
         self.db=db
 
