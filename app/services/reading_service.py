@@ -40,3 +40,10 @@ class ReadingService:
         # la peticion de lectura para enviarlo al repositorio
         return self.repository.get_by_id(reading_id)
 
+    def update_reading(self,reading_id: int, data:ReadingCreate)->Optional[Reading]:
+        reading =self.repository.get_by_id(reading_id)
+        if reading is None: 
+            return None
+        return self.repository.update(reading, data )
+        
+

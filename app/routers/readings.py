@@ -56,4 +56,14 @@ def get_reading(reading_id: int, db: Session= Depends(get_db)):
         # codigo especifico
     return reading
 
+@router.put("/readings/{reading_id}")
+def update_reading(reading_id:int, data:ReadingCreate, db:Session=Depends(get_db)):
+    repository = ReadingRepository(db)
+    service = ReadingService(repository)
+    reading = service.update_reading(reading_id, data)
+    if reading is None: 
+        raise HTTPException(status_code=404,detail="Reading not found")
+
+    return reading
+
 

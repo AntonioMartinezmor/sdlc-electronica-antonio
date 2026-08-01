@@ -7,6 +7,7 @@ from typing import Optional
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from app.models.reading import Reading
+from app.schemas.reading import ReadingCreate
 
 class ReadingRepository: # definimos una clase molde, para base de datos 
     #en readings
@@ -50,6 +51,14 @@ class ReadingRepository: # definimos una clase molde, para base de datos
         #ayuda de SQLAlchemy encuentra la fila que corresponde a la llave primaria id 
         # si no recibe la llave primaria regresa un none
 
-    
+    #recibiendo el objeto reading y data de parte de http 
+    def update(self , reading: Reading, data: ReadingCreate) -> Reading: 
+        reading.sensor_id =  data.sensor_id
+        reading.value = data.value
+        reading.unit = data.unit
+        self.db.commit()#confirmamos los cambios asignados en las anteriores lineas 
+        self.db.refresh(reading)# sincronizamos los datos que habia como los que se asignaron ahora
+        return reading
+
 
 
