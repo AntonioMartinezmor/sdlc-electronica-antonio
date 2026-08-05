@@ -1,1 +1,8 @@
+fastapi
 uvicorn[standard] 
+sqlalchemy
+pytest 
+pytest-cov
+ruff 
+mypy
+
