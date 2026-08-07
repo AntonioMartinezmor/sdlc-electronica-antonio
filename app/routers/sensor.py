@@ -45,7 +45,7 @@ def update_sensor(sensor_id: int, data: SensorCreate, db: Session=Depends(get_db
         raise HTTPException(status_code=404,detail="Sensor not found")
     return sensor 
 
-router.delete("/sensors/{sensor_id}")
+@router.delete("/sensors/{sensor_id}")
 def delete_sensor(sensor_id:int,db:Session=Depends(get_db)):
     repository = SensorRepository(db)
     service = SensorService(repository)

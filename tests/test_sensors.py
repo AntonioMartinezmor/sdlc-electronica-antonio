@@ -59,7 +59,7 @@ def test_udate_sensor_success():
     })
     sensor_id = create_response.json()["id"]
     
-    response = client.put(f"/sensores/{sensor_id}", json={
+    response = client.put(f"/sensors/{sensor_id}", json={
         "name": "Sensor Actualizado",
         "sensor_type": "temperature",
         "location": "Nueva Ubicacion"
@@ -76,7 +76,7 @@ def test_update_sensor_not_found():
     assert response.status_code == 404
 
 def test_delete_sensor_success():
-    create_response = client.post("/sensor", json={
+    create_response = client.post("/sensors", json={
         "name": "Sensor A Borrar", 
         "sensor_type": "humidity",
         "location": "Temporal"
