@@ -6,4 +6,5 @@ pytest-cov==7.1.0
 ruff==0.15.21 
 mypy==2.2.0
 psycopg2-binary
+httpx2
 
