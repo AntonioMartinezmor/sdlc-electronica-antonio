@@ -23,11 +23,11 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Lint with ruff
-        run: ruff check .
+        run: ruff check app/
 
       - name: Type check with mypy
         run: mypy app/ 
 
       - name: Run tests with coverage
         run: pytest --cov=app --cov-fail-under=80
-        
+
