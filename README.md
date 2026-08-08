@@ -30,5 +30,6 @@ docker compose up --build
 ### En terminal : Sin docker
 
 pip install -r requirements.txt
+
 uvicorn app.main:app --reload
 
