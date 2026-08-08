@@ -1,6 +1,6 @@
 # SensorHub 
 
-![CI](https://github.com/AntonioMartinez/sdlc-electronica-antonio/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/AntonioMartinezmor/sdlc-electronica-antonio/actions/workflows/ci.yml/badge.svg)
 
 Gestion de sensores y Lectura IoT por medio de API REST construida con FastAPI, SQLAlchemy 2 y PostgreSQL.
 
