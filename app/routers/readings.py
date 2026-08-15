@@ -8,20 +8,9 @@ from sqlalchemy.orm import Session
 from app.schemas.reading import ReadingCreate
 from app.repositories.reading_repository import ReadingRepository
 from app.services.reading_service import ReadingService
-from app.db import SessionLocal # aqui tenemos la aparicion del creador de sesiones
+from app.dependencies import get_db
 
 router= APIRouter()#creamos un servidor (mini) para utilizar un endpoint
-
-def get_db(): #funcion necesaria para el test
-    db = SessionLocal()
-    try: 
-        yield db #parte clabe, de ser solicitado entrega
-        # un session diferente que lleva a una base de datos diferente a la 
-        # original para el test 
-
-    finally:
-        db.close()
-
 
 @router.post("/readings")#establece el uso de este router para que responda a peticiones post
 def create_reading(reading: ReadingCreate, db: Session = Depends(get_db)): # validacion de JSON y entrega de datos como

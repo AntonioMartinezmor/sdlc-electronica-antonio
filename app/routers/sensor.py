@@ -3,16 +3,9 @@ from sqlalchemy.orm import Session
 from app.schemas.sensor import SensorCreate
 from app.repositories.sensor_repository import SensorRepository
 from app.services.sensor_service import SensorService
-from app.db import SessionLocal 
+from app.dependencies import get_db
 
 router = APIRouter()
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 @router.post("/sensors")
 def create_sensor(sensor:SensorCreate, db:Session=Depends(get_db)):
