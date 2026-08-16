@@ -18,7 +18,7 @@ def create_reading(reading: ReadingCreate, db: Session = Depends(get_db)):
     # 1. Evaluamos la anomalía con las clases nuevas
     strategy = Threshold_Anomaly_Strategy(min_threshold=-20.0, max_threshold=80.0)
     alert_service = AlertService(strategy=strategy)
-    anomaly_result = alert_service.process_reading(reading)
+    _ = alert_service.process_reading(reading)
 
     # 2. Guardamos mediante la capa de repositorio/servicio
     repository = ReadingRepository(db)
