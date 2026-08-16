@@ -6,6 +6,9 @@ from sqlalchemy.pool import StaticPool
 from app.main import app 
 from app.db import Base
 from app.routers.readings import get_db
+import pytest
+from pydantic import ValidationError
+from app.schemas.reading import ReadingCreate
 
 test_engine = create_engine("sqlite:///:memory:", 
      connect_args= { "check_same_thread": False},
@@ -131,18 +134,12 @@ def test_create_reading_valor_fuera_de_rango_se_valida():
     })
     assert response.status_code == 422
 
+
+
 def test_create_reading_value_nan_rechazado():
-    response = client.post("/readings", json={
-        "sensor_id": "SENSOR_01",
-        "unit": "celsius",
-        "value": float("nan")
-    })
-    assert response.status_code == 422
+    with pytest.raises(ValidationError):
+        ReadingCreate(sensor_id="SENSOR_01", unit="celsius", value=float("nan"))
 
 def test_create_reading_value_inf_rechazado():
-    response = client.post("/readings", json={
-        "sensor_id": "SENSOR_01",
-        "unit": "celsius",
-        "value": float("inf")
-    })
-    assert response.status_code == 422
+    with pytest.raises(ValidationError):
+        ReadingCreate(sensor_id="SENSOR_01", unit="celsius", value=float("inf"))
