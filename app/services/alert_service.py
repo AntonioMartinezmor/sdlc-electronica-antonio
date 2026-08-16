@@ -29,4 +29,4 @@ class AlertService:
 
  
             )
-            return result
+        return result
