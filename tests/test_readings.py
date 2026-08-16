@@ -106,3 +106,43 @@ def test_delete_reading_success():
 def test_delete_reading_not_found():
     response = client.delete("/readins/999999")
     assert response.status_code ==404
+
+def test_create_reading_sensor_id_vacio():
+    response = client.post("/readings", json={
+        "sensor_id": "",
+        "unit": "celsius",
+        "value": 25.0
+    })
+    assert response.status_code == 422
+
+def test_create_reading_unit_invalido_con_literal():
+    response = client.post("/readings", json={
+        "sensor_id": "SENSOR_01",
+        "unit": "kelvin",
+        "value": 25.0
+    })
+    assert response.status_code == 422
+
+def test_create_reading_valor_fuera_de_rango_se_valida():
+    response = client.post("/readings", json={
+        "sensor_id": "SENSOR_01",
+        "unit": "percent",
+        "value": 150.0
+    })
+    assert response.status_code == 422
+
+def test_create_reading_value_nan_rechazado():
+    response = client.post("/readings", json={
+        "sensor_id": "SENSOR_01",
+        "unit": "celsius",
+        "value": float("nan")
+    })
+    assert response.status_code == 422
+
+def test_create_reading_value_inf_rechazado():
+    response = client.post("/readings", json={
+        "sensor_id": "SENSOR_01",
+        "unit": "celsius",
+        "value": float("inf")
+    })
+    assert response.status_code == 422
