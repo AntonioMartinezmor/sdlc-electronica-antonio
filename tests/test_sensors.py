@@ -102,3 +102,15 @@ def test_list_sensors():
     response = client.get("/sensors")
     assert response.status_code == 200
     assert isinstance(response.json(), list)
+ 
+     
+def test_create_sensor_incluye_umbral_alerta():
+    response = client.post("/sensors",json={
+        "name": "Sensor Bodega Norte",
+        "sensor_type": "temperature",
+        "location": "Bodega Norte",
+        "alert_threshold":75.0
+    })
+    assert response.status_code == 200
+    assert response.json()["alert_threshold"] == 75.0
+    
