@@ -10,3 +10,4 @@ class Sensor(Base):
     name: Mapped[str]
     sensor_type: Mapped[str]
     location: Mapped[str]
+    alert_threshold: Mapped[float] = mapped_column(default=100.0)
