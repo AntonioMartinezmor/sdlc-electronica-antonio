@@ -3,16 +3,9 @@ from sqlalchemy.orm import Session
 from app.schemas.sensor import SensorCreate
 from app.repositories.sensor_repository import SensorRepository
 from app.services.sensor_service import SensorService
-from app.db import SessionLocal 
+from app.dependencies import get_db
 
 router = APIRouter()
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 @router.post("/sensors")
 def create_sensor(sensor:SensorCreate, db:Session=Depends(get_db)):
@@ -45,7 +38,7 @@ def update_sensor(sensor_id: int, data: SensorCreate, db: Session=Depends(get_db
         raise HTTPException(status_code=404,detail="Sensor not found")
     return sensor 
 
-router.delete("/sensors/{sensor_id}")
+@router.delete("/sensors/{sensor_id}")
 def delete_sensor(sensor_id:int,db:Session=Depends(get_db)):
     repository = SensorRepository(db)
     service = SensorService(repository)

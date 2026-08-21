@@ -7,3 +7,4 @@ class SensorCreate(BaseModel):
     name:str
     sensor_type: str
     location: str
+    alert_threshold: float = 100.0

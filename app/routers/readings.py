@@ -8,29 +8,28 @@ from sqlalchemy.orm import Session
 from app.schemas.reading import ReadingCreate
 from app.repositories.reading_repository import ReadingRepository
 from app.services.reading_service import ReadingService
-from app.db import SessionLocal # aqui tenemos la aparicion del creador de sesiones
+from app.dependencies import get_db
+from app.services.alert_service import AlertService
+from app.services.anomaly_strategies import Threshold_Anomaly_Strategy
 
 router= APIRouter()#creamos un servidor (mini) para utilizar un endpoint
+@router.post("/readings")
+def create_reading(reading: ReadingCreate, db: Session = Depends(get_db)):
+    # 1. Evaluamos la anomalía con las clases nuevas
+    strategy = Threshold_Anomaly_Strategy(min_threshold=-20.0, max_threshold=80.0)
+    alert_service = AlertService(strategy=strategy)
+    _ = alert_service.process_reading(reading)
 
-def get_db(): #funcion necesaria para el test
-    db = SessionLocal()
-    try: 
-        yield db #parte clabe, de ser solicitado entrega
-        # un session diferente que lleva a una base de datos diferente a la 
-        # original para el test 
+    # 2. Guardamos mediante la capa de repositorio/servicio
+    repository = ReadingRepository(db)
+    service = ReadingService(repository)
+    saved_reading = service.create_reading(reading)
 
-    finally:
-        db.close()
+    # 3. Retornamos la lectura guardada directamente para mantener la compatibilidad con test_readings.py
+    # Y si ocurrió anomalía, podemos adjuntar el flag en la entidad o retornarla limpia
+    return saved_reading
 
 
-@router.post("/readings")#establece el uso de este router para que responda a peticiones post
-def create_reading(reading: ReadingCreate, db: Session = Depends(get_db)): # validacion de JSON y entrega de datos como
-    #objeto python 
-    repository = ReadingRepository(db) #se crea un objeto readingrepository y se entrega db 
-    service = ReadingService(repository)# se crea otro objeto al que se le entrega el repository
-    return service.create_reading(reading) # envia al servicio los datos validados, regresando 
-    # que servicio devuelve
-#aprovechandonos de la cualidad de REST de reutilizar urls creamos este utilizando get
 @router.get("/readings")
 def list_readings(
     limit: int=10,

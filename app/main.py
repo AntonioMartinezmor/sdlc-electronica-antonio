@@ -15,4 +15,4 @@ app = FastAPI(title="SensorHub")# es encargado de generar la aplicacion
 app.include_router(health.router)# registra los servidores que nosotros 
 app.include_router(readings.router)# construimos en routers para su posterior
 # arranque con uvicorn
-app.include_router(sensor.router)
+app.include_router(sensor.router)# se agrego como nuevo router del sensor

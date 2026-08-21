@@ -6,6 +6,9 @@ from sqlalchemy.pool import StaticPool
 from app.main import app 
 from app.db import Base
 from app.routers.readings import get_db
+import pytest
+from pydantic import ValidationError
+from app.schemas.reading import ReadingCreate
 
 test_engine = create_engine("sqlite:///:memory:", 
      connect_args= { "check_same_thread": False},
@@ -106,3 +109,37 @@ def test_delete_reading_success():
 def test_delete_reading_not_found():
     response = client.delete("/readins/999999")
     assert response.status_code ==404
+
+def test_create_reading_sensor_id_vacio():
+    response = client.post("/readings", json={
+        "sensor_id": "",
+        "unit": "celsius",
+        "value": 25.0
+    })
+    assert response.status_code == 422
+
+def test_create_reading_unit_invalido_con_literal():
+    response = client.post("/readings", json={
+        "sensor_id": "SENSOR_01",
+        "unit": "kelvin",
+        "value": 25.0
+    })
+    assert response.status_code == 422
+
+def test_create_reading_valor_fuera_de_rango_se_valida():
+    response = client.post("/readings", json={
+        "sensor_id": "SENSOR_01",
+        "unit": "percent",
+        "value": 150.0
+    })
+    assert response.status_code == 422
+
+
+
+def test_create_reading_value_nan_rechazado():
+    with pytest.raises(ValidationError):
+        ReadingCreate(sensor_id="SENSOR_01", unit="celsius", value=float("nan"))
+
+def test_create_reading_value_inf_rechazado():
+    with pytest.raises(ValidationError):
+        ReadingCreate(sensor_id="SENSOR_01", unit="celsius", value=float("inf"))
