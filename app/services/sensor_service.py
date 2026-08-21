@@ -8,7 +8,7 @@ class SensorService:
         self.repository = repository
 
     def create_sensor(self, data: SensorCreate) ->Sensor: 
-        sensor = Sensor(name=data.name, sensor_type=data.sensor_type, location= data.location)
+        sensor = Sensor(name=data.name, sensor_type=data.sensor_type, location= data.location, alert_threshold=data.alert_threshold,)
         return self.repository.create(sensor)
 
     def get_sensors(self, limit: int=10, offset:int=0) ->list[Sensor]:
